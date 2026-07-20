@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <!-- NEW: Dynamic Dashboard Add Strand Module -->
+        <!-- Dynamic Dashboard Add Strand Module -->
         <div x-show="editMode" x-cloak class="bg-slate-950 p-3 rounded-lg border border-slate-850 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
             <div class="flex items-center space-x-2">
                 <span class="text-emerald-400 font-bold font-mono">🔧 Project Manager:</span>
@@ -64,7 +64,7 @@
                 <span class="text-[10px] text-emerald-400 bg-emerald-950/50 border border-emerald-900/50 px-2 py-0.5 rounded font-bold">Reactive Live Feed</span>
             </div>
             <p class="text-slate-500 mb-4 font-sans leading-relaxed">Modifying assets directly within the web preview canvas on the right automatically structures object matrices inside the runtime array system displayed below:</p>
-            <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-emerald-300 overflow-x-auto selection:bg-emerald-900" x-text="JSON.stringify(siteData.projects, null, 2)"></pre>
+            <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-emerald-300 overflow-x-auto selection:bg-indigo-900" x-text="JSON.stringify(siteData.projects, null, 2)"></pre>
         </div>
 
         <!-- MAIN SITE LAYOUT WEB CANVAS -->
@@ -106,14 +106,13 @@
                             <button @click="currentView = 'projects'" class="text-xs text-emerald-600 font-bold hover:text-emerald-800 transition-colors">See Detailed Agendas &rarr;</button>
                         </div>
                         
-                        <!-- Dynamic Responsive Grid featuring all projects dynamically -->
+                        <!-- Dynamic Responsive Grid showing all projects -->
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <template x-for="(project, index) in siteData.projects" :key="project.id">
                                 <div class="bg-white border border-slate-200 rounded-xl p-5 transition-all shadow-xs hover:shadow-md flex flex-col justify-between group">
                                     <div>
                                         <div class="flex justify-between items-start gap-2 mb-2">
                                             <span class="bg-slate-100 text-slate-600 font-mono text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider editable-field" :contenteditable="editMode" @blur="updateArrayItem($event, 'projects', index, 'status')" x-text="project.status"></span>
-                                            <!-- Delete option in edit mode -->
                                             <button x-show="editMode" @click.stop="removeStrand(index)" class="text-[10px] text-rose-600 font-bold hover:underline">Remove</button>
                                         </div>
                                         <h4 class="text-base font-bold text-slate-900 mb-2 leading-snug editable-field" 
@@ -255,130 +254,89 @@
                 siteData: {
                     labName: "Campbell Research Group",
                     university: "Orlando College of Osteopathic Medicine Research",
-                    heroTitle: "Integrating molecular-scale structural biology and macro-scale spatial epidemiology to address public health disparities.",
-                    heroDescription: "Our research team designs and evaluate pedagogical frameworks that integrate bioinformatics, spatial tools into medical and health professions curricula.",
+                    heroTitle: "Advancing translational medicine through geospatial analytics, metagenomic pipeline surveillance, and functional pathogen proteomics.",
+                    heroDescription: "Our team deploys reproducible multi-dimensional data pipelines to isolate critical health access disparities, characterization anomalies in infectious pathogens, and distinct adverse-event safety profiles within complex public health reporting platforms.",
                     piName: "Christopher O. Campbell, MS, PhD",
                     piTitle: "Principal Investigator",
                     piEmail: "ccampbell@ocom.org",
-                    piBio: "Dr. Campbell’s research focuses on translating complex bioinformatics and spatial data into actionable public health insights and accessible learning frameworks.",
+                    piBio: "Dr. Christopher O. Campbell oversees integrated computational biology, health outcome surveillance, and clinical research tracks at the Orlando College of Osteopathic Medicine. His team targets translating public genomic language models and geospatial intelligence into actionable health systems intervention frameworks.",
                     
                     projects: [
                         {
-                            id: “Disease Surveillance”,
-                            title: "1. Deploying Scalable Metagenomic Surveillance: Tracking the Evolution and Spread of H5N1 Avian Influenza and its Mammalian Adaptations",
-                            summary: "Use open source tools deployed by global agencies (ex. WHO, CDC) to map viral diversity. Mine the. public genome datasets and run cloud pipelines to pinpoint the crucial mutations",
-                            description: "Use open source tools deployed by global agencies (ex. WHO, CDC) to map viral diversity. Mine the. public genome datasets and run cloud pipelines to pinpoint the crucial mutations that enable host-jumping and then build the phylodynamic models and spatial maps. Work is done using the Seqera platform, so not coding experience required. You will learn the necessary Python/R science as needed throughout the project.
-",
-                            Department: "Specialty Medicine",
-                            status: "Recruiting"
+                            id: "faers-biologics",
+                            title: "1. FAERS Disproportionality Analysis of Type-2 Biologics in CRSwNP",
+                            summary: "A comparative evaluation of Dupilumab and Mepolizumab adverse-event signals using a six-metric statistical framework filtered strictly for chronic rhinosinusitis with nasal polyps.",
+                            description: "This retrospective study processes 27,052 dupilumab and 1,113 mepolizumab cases extracted from the FDA Adverse Event Reporting System (FAERS) from Q1 2015 to Q4 2025. Disproportionality is rigorously mapped through a multi-tiered array (ROR, PRR, IC/BCPNN, EBGM/MGPS, Chi-Squared, and Logistic Regression).\n\nKey outcomes demonstrate distinct safety configurations: Dupilumab's profiles are broader but milder, dominated by ocular adverse events (e.g., dry eye, blurred vision) and injection-site reactions. Conversely, mepolizumab exhibits fewer overall events but yields higher disproportionality estimates for serious hematologic, cardiac, and respiratory outcomes—notably amplified in female cohorts and patients utilizing concurrent oral corticosteroids (OCS). Weibull shape parameter calculations demonstrate early failure patterns across primary indicators.",
+                            funding: "OCOM Intramural Surveillance Grant",
+                            status: "Active Analysis"
                         },
                         {
-                            id: “Protein Characterization”,
-                            title: "2. Systematic Annotation of "Hypothetical" or Uncharacterized Proteins in High-Priority Pathogens Using Genomic Language Models and Context-Aware AI Agents",
-                            summary: "Applying this framework to characterize and annotate pathogen genomes for future drug candidate evaluation",
-                            description: "Despite rapid advancements in whole-genome sequencing, up to 40–60% of proteins encoded by microbial pathogens remain classified as uncharacterized "hypothetical" proteins. Standard homology tools like BLAST frequently fail on hyperdivergent loci, leaving significant gaps in our understanding of pathogen virulence, stress response, and drug resistance mechanisms. In this study, we present a standardized computational framework utilizing SeqHub (Tatta Bio) to systematically decode the "functional dark matter" of high-priority microbial pathogens.",
-                            Department: "Specialty Medicine",
-                            status: "Recruiting"
+                            id: "genomic-language-models",
+                            title: "2. Decoding 'Functional Dark Matter' in Pathogens via Genomic Language Models",
+                            summary: "Systematic curation and functional annotation of uncharacterized and hypothetical protein loci using deep learning sequence embeddings and context-aware AI agents.",
+                            description: "Up to 40–60% of proteins encoded by microbial pathogens remain classified as uncharacterized 'hypothetical' proteins where traditional tools like BLAST break down. This study deploys a standardized framework leveraging SeqHub (Tatta Bio) alongside genomic language model sequence embeddings, FlashPPI interactome modeling, and context-aware AI agents to synthesize local operon synteny and structural topology.\n\nThe 5-month operational pipeline is built to systematically process target microbial pathogen cohorts, constructing highly detailed protein-protein interaction (PPI) subnetworks and functional taxonomy tracking systems to reveal novel efflux subunits, cell-wall modification pathways, and unknown virulence factors.",
+                            funding: "Computational Biology Research Initiative",
+                            status: "Pipeline Validation"
                         },
                         {
-                            id: “Clinical Cohorts”,
-                            title: "3. Comparative Incidence of Major Adverse Kidney Events (MAKE) and Acute Kidney Injury in Patients with Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) Initiating Tirzepatide versus Semaglutide vs. SGLT2 Inhibitors",
-                            summary: "This study uses real-world Electronic Health Record (EHR) data from the TriNetX platform",
-                            description: "This study uses real-world Electronic Health Record (EHR) data from the TriNetX platform to evaluate whether Tirzepatide, a dual GIP/GLP-1 receptor agonist, provides superior renal protection compared to Semaglutide or SGLT2 inhibitors in high-risk patients with Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD). Using 1:1 propensity score matching to balance baseline demographics, comorbidities, and laboratory values, we will track the 1-year incidence of Major Adverse Kidney Events (MAKE) and Acute Kidney Injury (AKI) across matched cohorts. By filling a critical gap in comparative effectiveness literature, this project aims to clarify optimal therapeutic selection for patients navigating concurrent metabolic liver disease and kidney risk.",
-                            Department: "Specialty Medicine",
-                            status: "Recruiting"
+                            id: "h5n1-metagenomics",
+                            title: "3. Scalable Metagenomic Surveillance & Phylodynamics of H5N1 Adaptation",
+                            summary: "Tracking global transmission trajectories, spatiotemporal lineages, and specific mammalian-adaptive mutations of Avian Influenza via the Seqera cloud execution system.",
+                            description: "This surveillance program implements production-grade public health data mining across the GISAID and NCBI Virus repositories to evaluate the current H5N1 influenza panzootic. Running reproducible pipelines (such as nf-core/viralrecon) hosted directly on the Seqera compute platform, the research group tracks critical amino acid shifts—specifically matching variations like PB2 E627K or D701N that dictate mammalian replication advantages.\n\nDownstream tracking pipelines construct maximum-likelihood phylogenetic trees (IQ-TREE) integrated with Nextstrain components to map global spillover vectors and spatial transmission clusters across avian, cattle, and human cross-hosts.",
+                            funding: "Global Metagenomic Surveillance Fund",
+                            status: "Data Ingestion Phase"
                         },
                         {
-                            id: “Protein Characterization”,
-                            title: "4. Computational Characterization of the Apicoplast-Associated FIKK9.1 Serine/Threonine Kinase in Plasmodium falciparum",
-                            summary: "Protein kinases and phosphatases play a crucial role in the regulation of the metabolic processes in the apicoplast as they regulate protein activity through reversible phosphorylation.",
-                            description: "Background
-
-The apicoplast is found in Plasmodium and other Apicomplexan parasites, and is unique as it has originated from secondary endosymbiosis, making it evolutionarily distinct from host cell organelles. Since it is unique to parasites and essential for survival, it is a high-value drug target as inhibitors can selectively kill the parasite without harming the host.
-
-The apicoplast is essential for Plasmodium survival because it supports several metabolic pathways that cannot be compensated for by host-derived resources. If the function of the apicoplast is disrupted, it will undergo a delayed death in which the parasite will survive an initial replication cycle but fail in subsequent cycles.
-
-Protein kinases and phosphatases play a crucial role in the regulation of the metabolic processes in the apicoplast as they regulate protein activity through reversible phosphorylation. The kinases catalyze the addition of phosphate groups to serine, threonine, or tyrosine residues, while phosphatases remove these modifications. This process governs enzyme activity, protein localization, protein–protein interactions, and signal transduction pathways that are essential for metabolism, cell cycle progression, and organelle signaling. Consequently, apicoplast-localized kinases represent promising regulatory nodes and potential therapeutic targets in Plasmodium falciparum, as kinases are easy to block with medicine and are historically highly druggable.
-
-Research Question / Hypothesis
-
-It is hypothesized that the conserved apicoplast-associated serine/threonine protein kinase FIKK9.1 (PF3D7_0902000) is a crucial enzyme for parasite development and a potential antimalarial drug target. Its essential role in supporting the parasitic metabolic pathways absent in humans emphasizes its potential as a selective target that could kill the parasite without harming the host.
-
-Methods
-
-The FIKK9.1 protein sequence was obtained from PlasmoDB and UniProt, and analyzed using ProtParam to determine physicochemical properties. Prosite, CDD, CDART, SMART, and the Superfamily were utilized to identify and confirm the conserved domains and signature motifs. The transcriptomic data from PlasmoDB were examined to assess stage-specific expression across the parasite life cycle. Structural characterization was performed through homology modeling using SWISS-MODEL and compared with AlphaFold predictions. Potential small-molecule inhibitors were identified from ChEMBL-NTD and evaluated through molecular docking using SWISS-Dock.
-
-Results
-
-ProtParam analysis predicted that FIKK9.1 is a stable, soluble protein with physicochemical properties consistent with enzymatic activity. Domain analysis identified a conserved serine/threonine protein kinase catalytic domain spanning residues approximately 172–539, including ATP-binding residues and a catalytically active-site motif, which support its classification as a kinase. SMART and BLAST analyses demonstrated strong conservation of FIKK9.1 across Plasmodium species and its lack of close human homologs. Structural modeling revealed a kinase fold suitable for inhibitor binding, and the docking studies identified candidate kinase inhibitors with favorable predicted binding orientations within the active site.
-
-Conclusion
-
-The conserved apicoplast-associated serine/threonine protein kinase FIKK9.1 (PF3D7_0902000) has structural and biochemical features consistent with a regulatory role in Plasmodium falciparum development. Its lack of close human analogs, essential parasitic organelle association, and predicted druggability demonstrate that FIKK9.1 could be a potential target for future antimalarial therapeutic development.",
-                            Department: “Specialty Medicine”,
-                            status: "Active"
+                            id: "apicoplast-fikk-kinase",
+                            title: "4. Computational Characterization of FIKK9.1 Kinase in Plasmodium falciparum",
+                            summary: "Homology structural modeling and in silico small-molecule docking targeting the apicoplast-associated serine/threonine protein kinase to discover antimalarial candidates.",
+                            description: "The apicoplast organelle of Plasmodium falciparum is vital for parasitic survival but evolutionarily distinct from human structures, representing an ideal selective target. This project investigates the conserved kinase FIKK9.1 (PF3D7_0902000). Using toolsets including ProtParam, PROSITE, SMART, and SWISS-MODEL, the group confirmed a highly conserved serine/threonine catalytic core spanning residues 172–539 and verified its distinct variation from human homologs.\n\nMolecular docking strategies via SwissDock screened against ChEMBL-NTD arrays successfully isolated highly favorable small-molecule candidate compounds (including CHEMBL54482, demonstrating an IC50 of 10 nM) showing strong potential for future antimalarial therapeutic development. Selected versions of this work are presented at the Harvard Medical School New England Science Symposium.",
+                            funding: "Biomedical Science Careers Program Collaboration",
+                            status: "Abstract Assembly"
                         },
                         {
-                            id: “Geospatial Analysis”,
-                            title: "5. Identifying Healthcare Deserts: A Geospatial Analysis of Hospital Serviceability in Florida Census Tracts",
-                            summary: "This project identified the presence of substantial geographic disparities in hospital accessibility across Florida, with critical gaps in densely populated coastal and rural areas.",
-                            description: "Alexander Uhlman
-Abstract 
-Statement of Problem/ Background
-Geographic accessibility to hospitals is a determinant of health outcomes, especially when considering emergency care delivery. Despite Florida’s growing population, systematic assessment of hospital distribution relative to population density remains limited. The objective of this project is to identify and characterize geographic disparities in hospital accessibility across Florida using a multi-dimensional serviceability framework that integrates distance metrics, hospital capacity, and population density data. 
-Research Question/Hypothesis
-Research Design/Methods
-This analysis was conducted across 5,160 census tracts in Florida using the 2022 American Community Survey data and Florida hospital registry information for 348 licensed hospitals. A composite serviceability score (0-100) was developed by incorporating three weighted components… 
-1. Geographic distance to nearest hospital (40%) 
-2. Number of hospitals within 15 miles (35%) 
-3. Bed Capacity per 1,000 population (25%) 
-Census tracts were classified as either Critical (population density ≥1,000/mi² AND score <40), High Priority (≥500/mi² AND score <50), Moderate Priority (≥300/mi² AND score <60), or Adequate based on population density and serviceability thresholds. 
-
-Results/Summary of the Investigation
-The mean serviceability score was 80.1 (SD 20.3), with significant geographic variation. There were a total of 357 underserved census tracts (6.9% of total analyzed tracts) affecting approximately 1.48 million residents (6.6% of state population. Among these, 63 tracts were classified as Critical or High Priority, representing areas with high population density and severely inadequate hospital access. Critical hotspots were concentrated in Collier County (2 tracts in the top 5, population density 5,093-7,604/mi², zero hospitals within 15 miles), Palm Beach County (2 tracts, density 9,220-9,807/mi²), and Brevard County (1 tract, density 3,917-4,277/mi²). The most underserved tract (Collier County Census Tract 113.03) housed 4,311 residents at 7,604/mi² with no hospital access within 17.5 miles. Brevard county was revealed to have the largest underserved population (137,437 residents in 33 tracts), followed by Okaloosa (78,385 residents in 13 tracts). Score distribution showed 60% of tracts rated as
-Excellent (80-100), 30% Good (60-80), 7% Fair (40-60), 2% Poor (20-40), and 1% Critical (0-20). 
-Interpretation/Conclusion of the Investigation
-This project identified the presence of substantial geographic disparities in hospital accessibility across Florida, with critical gaps in densely populated coastal and rural areas. These findings provide an evidence-based framework for strategic healthcare infrastructure investment and policy interventions to address healthcare inequities affecting 1.48 million Floridians.",
-                            Department: “Specialty Medicine”,
-                            status: "Active"
+                            id: "strand-placeholder-5",
+                            title: "5. Somatic Tissue Tracking & Neuromuscular Calibration Profiles",
+                            summary: "Placeholder for ongoing lab project 5. Click Enter Edit Mode at the top to completely customize this active strand title and overview summary layout.",
+                            description: "This is a pre-formatted template for your fifth concurrent project brief. Update these description fields using the Edit Mode toggle to detail specialized hypotheses, methods, and results.",
+                            funding: "OCOM Internal Allotment",
+                            status: "Active Data Entry"
                         },
                         {
-                            id: “Predictive Models”,
-                            title: "6. Computational Prediction of Post-Translational Modifications in OXR1 and GLRX Proteins in Mesial Temporal Lobe Epilepsy with Hippocampal Sclerosis",
-                            summary: "Mesial temporal lobe epilepsy with hippocampal sclerosis (MTLE+HS) is characterized by a "proteostatic crisis" where the cellular defense against oxidative stress is profoundly compromised.",
-                            description: "Mesial temporal lobe epilepsy with hippocampal sclerosis (MTLE+HS) is characterized by a "proteostatic crisis" where the cellular defense against oxidative stress is profoundly compromised. While transcriptomic profiling has identified broad dysregulation of oxidative stress pathways in human TLE tissue, recent integrative multi-omics analysis revealed a potential mechanism: the proteins OXR1 (Oxidation Resistance 1) and GLRX (Glutaredoxin) are consistently downregulated across proteomic platforms (DIA and PRM validation) despite their central role in neuronal survival.
-While rare genomic loss-of-function mutations in OXR1 are known to cause severe neurological phenotypes including epilepsy and cerebellar atrophy,³ the more common acquired downregulation in MTLE leads us to consider if there is a post-translational mechanism. Post-translational modifications (PTMs) are known to be globally altered in TLE tissue, and specific PTMs on OXR1 have been shown to regulate its interaction with antioxidant partners like peroxiredoxins.
-In the context of the glutathione dysregulation and chronic oxidative stress characteristic of the epileptic hippocampus, it is hypothesized that OXR1 and GLRX are targeted for premature degradation. Specifically, aberrant ubiquitination and phosphorylation may serve as molecular "switches" that decrease protein half-life or disrupt functional domains like the TLDc domain in OXR1 or the thioredoxin-like active site in GLRX. Systematically mapping these predicted PTM sites is essential to understanding the bridge between the transcriptomic signatures of disease and the functional failure of the proteome in drug-resistant epilepsy.",
-                            Department: "Specialty Medicine",
-                            status: "Active"
+                            id: "strand-placeholder-6",
+                            title: "6. Osteopathic Clinical Outcome & Health Equity Analytics",
+                            summary: "Placeholder for ongoing lab project 6. Click Enter Edit Mode at the top to completely customize this active strand title and overview summary layout.",
+                            description: "This is a pre-formatted template for your sixth concurrent project brief. Update these description fields using the Edit Mode toggle to detail specialized hypotheses, methods, and results.",
+                            funding: "To Be Assigned",
+                            status: "Active Data Entry"
                         },
                         {
-                            id: “Clinical Drug Evaluation”,
-                            title: "7. Disproportionality Analysis of FDA Adverse Event Reporting System (FAERS) Events for Dupilumab and Mepolizumab in Patients with Chronic Rhinosinusitis with Nasal Polyps",
-                            summary: "We hypothesize that Mepolizumab will have a distinct AE profile when compared to Dupilumab given anecdotal evidence.",
-                            description: "We identified 27,052 dupilumab and 1,113 mepolizumab cases. Dupilumab was associated predominantly with ocular and injection-site AEs, plus musculoskeletal (arthralgia) and olfactory (anosmia) signals. Mepolizumab showed stronger relative signals for hematologic, cardiac, and respiratory AEs. Dupilumab showed female-predominant ocular but male-predominant injection-site signals; mepolizumab showed female-predominant respiratory signals. Concurrent oral corticosteroids use amplified AE reporting more for mepolizumab than dupilumab. Weibull modeling showed early failure patterns for most AEs.",
-                            Department: "Specialty Medicine",
-                            status: "Active"
+                            id: "strand-placeholder-7",
+                            title: "7. Translational Biochemical Assay & Structural Validation Panels",
+                            summary: "Placeholder for ongoing lab project 7. Click Enter Edit Mode at the top to completely customize this active strand title and overview summary layout.",
+                            description: "This is a pre-formatted template for your seventh concurrent project brief. Update these description fields using the Edit Mode toggle to detail specialized hypotheses, methods, and results.",
+                            funding: "To Be Assigned",
+                            status: "Active Data Entry"
                         }
                     ],
                     
                     publications: [
-                        "Campbell, C. O. ‘Demystifying Computational Biology: A Scalable Drub Discovery Framework for Medical Curricula”, Cureus Journal of Medical Science, 10.7759/cureus.112721
-                        "Campbell, C. O., & Davis, M. ‘In Silico characterization of an atypical MAPK phosphatase of Plasmodium falciparum as a suitable target for drug discovery’, Chemical Biology and Drug Design, 10.1111/cbdd.12315
+                        "Lorenzo, A., Sambar, M., Uhlman, A., Campbell, C. O., Sullivan, K. A. 'Disproportionality Analysis of FDA Adverse Event Reporting System (FAERS) Events for Dupilumab and Mepolizumab in Patients with Chronic Rhinosinusitis with Nasal Polyps.' OCOM Clinical Portfolio, 2026.",
+                        "Vatsa, R., Threatt, S., Mousa, P., Pena, B., Campbell, C. O. 'Computational Characterization of the Apicoplast-Associated FIKK9.1 Serine/Threonine Kinase in Plasmodium falciparum.' Presented at Harvard Medical School NESS, 2026."
                     ],
                     
                     resources: [
                         {
-                            name: “Seqera”,
-                            type: “Enterprise Bioinformatics”,
-                            description: “The comprehensive platform empowering teams across the entire scientific lifecycle.",
-                            url: "https://seqera.io/platform/"
+                            name: "FAERS T2-Biologic Disproportionality Pipeline",
+                            type: "R Script Library",
+                            description: "Reproducible code architectures managing 6-metric tables, OCS stratification variables, and Weibull time-to-onset regressions.",
+                            url: "#"
                         },
                         {
-                            name: “Seqhub”,
-                            type: “Sequence to Function",
-                            description: "This tool evaluates the 'sequence-to-function problem' — the challenge of predicting what a gene or protein actually does based on its sequence alone",
-                            url: "https://seqhub.org/"
+                            name: "H5N1 Automated Nextflow Launch Profiles",
+                            type: "Seqera Configuration",
+                            description: "Cloud-optimized container architecture profiles designed for rapid public health virus variant mapping.",
+                            url: "#"
                         }
                     ]
                 },
@@ -404,14 +362,12 @@ In the context of the glutathione dysregulation and chronic oxidative stress cha
                         return;
                     }
                     
-                    // Verify uniqueness
                     const detailsExist = this.siteData.projects.some(p => p.id === cleanId);
                     if(detailsExist) {
                         alert("A research strand with that URL identifier already exists.");
                         return;
                     }
 
-                    // Append project object structure
                     this.siteData.projects.push({
                         id: cleanId,
                         title: "New Research Initiative Placeholder",
@@ -421,8 +377,8 @@ In the context of the glutathione dysregulation and chronic oxidative stress cha
                         status: "Active"
                     });
 
-                    this.newProjectUrlId = ''; // Reset input array field
-                    alert(`Project Pipeline "${cleanId}" created successfully! Scroll down or hit the 'Research' navigation tab to view.`);
+                    this.newProjectUrlId = '';
+                    alert(`Project Pipeline "${cleanId}" created successfully! Scroll down to view the new placeholder grid card.`);
                 },
 
                 removeStrand(index) {
