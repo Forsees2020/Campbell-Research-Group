@@ -3,37 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Laboratory Hub</title>
+    <title>Campbell Research Group</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         [x-cloak] { display: none !important; }
-        .editable-field:focus { outline: 3px solid #6366f1; background-color: #f8fafc; border-radius: 6px; padding: 2px 6px; }
+        .editable-field:focus { outline: 3px solid #059669; background-color: #f0fdf4; border-radius: 6px; padding: 2px 6px; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col" x-data="labApp()" x-init="init()">
 
     <!-- Top Production Control Panel -->
-    <div class="bg-slate-900 border-b border-slate-800 text-white px-6 py-3 flex flex-wrap justify-between items-center sticky top-0 z-50 shadow-sm">
-        <div class="flex items-center space-x-4">
-            <span class="flex h-2 w-2 rounded-full bg-indigo-400"></span>
-            <span class="font-mono text-xs tracking-wider uppercase text-slate-400">Lab Editor Workspace</span>
-            <button @click="toggleEditMode()" 
-                    :class="editMode ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-indigo-600 hover:bg-indigo-700'"
-                    class="px-4 py-1.5 rounded-md font-semibold text-xs tracking-wide uppercase transition-colors shadow-sm">
-                <span x-text="editMode ? '🔒 Save & Lock View' : '🔓 Modify Content & Layout'"></span>
-            </button>
-        </div>
-        
-        <!-- Interactive Preview Split Screen Controls -->
-        <div class="flex items-center space-x-4 mt-2 sm:mt-0" x-show="editMode" x-cloak>
-            <div class="bg-slate-800 p-1 rounded-md flex space-x-1 border border-slate-700">
-                <button @click="previewLayout = 'split'" :class="previewLayout === 'split' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-white'" class="px-2.5 py-1 rounded text-xs font-medium transition-all">Split Preview</button>
-                <button @click="previewLayout = 'full'" :class="previewLayout === 'full' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-white'" class="px-2.5 py-1 rounded text-xs font-medium transition-all">Full Canvas</button>
+    <div class="bg-slate-900 border-b border-slate-800 text-white px-6 py-4 flex flex-col gap-4 sticky top-0 z-50 shadow-md">
+        <div class="flex flex-wrap justify-between items-center w-full">
+            <div class="flex items-center space-x-4">
+                <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                <span class="font-mono text-xs tracking-wider uppercase text-slate-400">Lab Editor Workspace</span>
+                <button @click="toggleEditMode()" 
+                        :class="editMode ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-emerald-700 hover:bg-emerald-800'"
+                        class="px-4 py-1.5 rounded-md font-semibold text-xs tracking-wide uppercase transition-colors shadow-sm">
+                    <span x-text="editMode ? '🔒 Save & Lock View' : '🔓 Modify Content & Layout'"></span>
+                </button>
             </div>
-            <button @click="exportData()" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-md text-xs uppercase tracking-wider font-bold transition-all">
-                Export Data Block
-            </button>
+            
+            <!-- Interactive Preview Split Screen Controls -->
+            <div class="flex items-center space-x-4 mt-2 sm:mt-0" x-show="editMode" x-cloak>
+                <div class="bg-slate-800 p-1 rounded-md flex space-x-1 border border-slate-700">
+                    <button @click="previewLayout = 'split'" :class="previewLayout === 'split' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-white'" class="px-2.5 py-1 rounded text-xs font-medium transition-all">Split Preview</button>
+                    <button @click="previewLayout = 'full'" :class="previewLayout === 'full' ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-white'" class="px-2.5 py-1 rounded text-xs font-medium transition-all">Full Canvas</button>
+                </div>
+                <button @click="exportData()" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-md text-xs uppercase tracking-wider font-bold transition-all">
+                    Export Data Block
+                </button>
+            </div>
+        </div>
+
+        <!-- NEW: Dynamic Dashboard Add Strand Module -->
+        <div x-show="editMode" x-cloak class="bg-slate-950 p-3 rounded-lg border border-slate-850 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
+            <div class="flex items-center space-x-2">
+                <span class="text-emerald-400 font-bold font-mono">🔧 Project Manager:</span>
+                <span class="text-slate-400">Initialize a new dynamic strand pipeline instantly:</span>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <input type="text" x-model="newProjectUrlId" placeholder="e.g. vascular-mechanics" class="bg-slate-800 border border-slate-700 rounded px-2.5 py-1 text-white placeholder-slate-550 focus:outline-none focus:border-emerald-500 text-xs w-full sm:w-48 font-mono">
+                <button @click="addNewStrand()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded font-bold transition-colors whitespace-nowrap">
+                    ➕ Add Research Strand
+                </button>
+            </div>
         </div>
     </div>
 
@@ -48,7 +64,7 @@
                 <span class="text-[10px] text-emerald-400 bg-emerald-950/50 border border-emerald-900/50 px-2 py-0.5 rounded font-bold">Reactive Live Feed</span>
             </div>
             <p class="text-slate-500 mb-4 font-sans leading-relaxed">Modifying assets directly within the web preview canvas on the right automatically structures object matrices inside the runtime array system displayed below:</p>
-            <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-indigo-300 overflow-x-auto selection:bg-indigo-900" x-text="JSON.stringify(siteData, null, 2)"></pre>
+            <pre class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-emerald-300 overflow-x-auto selection:bg-emerald-900" x-text="JSON.stringify(siteData.projects, null, 2)"></pre>
         </div>
 
         <!-- MAIN SITE LAYOUT WEB CANVAS -->
@@ -60,7 +76,7 @@
                     <div>
                         <h1 class="text-2xl font-black text-slate-900 tracking-tight editable-field" 
                             :contenteditable="editMode" @blur="updateField($event, 'labName')" x-text="siteData.labName"></h1>
-                        <p class="text-xs font-semibold uppercase tracking-wider text-indigo-600 mt-1 editable-field" 
+                        <p class="text-xs font-semibold uppercase tracking-wider text-emerald-600 mt-1 editable-field" 
                            :contenteditable="editMode" @blur="updateField($event, 'university')" x-text="siteData.university"></p>
                     </div>
                     <nav class="flex space-x-1 bg-slate-100 p-1 rounded-lg text-xs font-bold text-slate-600">
@@ -77,7 +93,7 @@
                 
                 <!-- LANDING HUB OVERVIEW -->
                 <div x-show="currentView === 'home'" x-cloak class="space-y-16">
-                    <section class="border-l-4 border-indigo-600 pl-6 space-y-3">
+                    <section class="border-l-4 border-emerald-600 pl-6 space-y-3">
                         <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight editable-field" 
                             :contenteditable="editMode" @blur="updateField($event, 'heroTitle')" x-text="siteData.heroTitle"></h2>
                         <p class="text-base text-slate-600 leading-relaxed max-w-3xl editable-field" 
@@ -86,19 +102,26 @@
 
                     <section class="space-y-6">
                         <div class="border-b border-slate-200 pb-3 flex justify-between items-end">
-                            <h3 class="text-lg font-bold text-slate-900 tracking-tight uppercase tracking-wider text-xs">Primary Research Strands</h3>
-                            <button @click="currentView = 'projects'" class="text-xs text-indigo-600 font-bold hover:text-indigo-800 transition-colors">See Detailed Agendas &rarr;</button>
+                            <h3 class="text-lg font-bold text-slate-900 tracking-tight uppercase text-xs tracking-wider">Primary Research Strands</h3>
+                            <button @click="currentView = 'projects'" class="text-xs text-emerald-600 font-bold hover:text-emerald-800 transition-colors">See Detailed Agendas &rarr;</button>
                         </div>
-                        <div class="grid md:grid-cols-2 gap-6">
+                        
+                        <!-- Dynamic Responsive Grid featuring all projects dynamically -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <template x-for="(project, index) in siteData.projects" :key="project.id">
-                                <div class="bg-white border border-slate-200 rounded-xl p-6 transition-all shadow-xs hover:shadow-md flex flex-col justify-between">
+                                <div class="bg-white border border-slate-200 rounded-xl p-5 transition-all shadow-xs hover:shadow-md flex flex-col justify-between group">
                                     <div>
-                                        <h4 class="text-lg font-bold text-slate-900 mb-2 editable-field" 
+                                        <div class="flex justify-between items-start gap-2 mb-2">
+                                            <span class="bg-slate-100 text-slate-600 font-mono text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider editable-field" :contenteditable="editMode" @blur="updateArrayItem($event, 'projects', index, 'status')" x-text="project.status"></span>
+                                            <!-- Delete option in edit mode -->
+                                            <button x-show="editMode" @click.stop="removeStrand(index)" class="text-[10px] text-rose-600 font-bold hover:underline">Remove</button>
+                                        </div>
+                                        <h4 class="text-base font-bold text-slate-900 mb-2 leading-snug editable-field" 
                                             :contenteditable="editMode" @blur="updateArrayItem($event, 'projects', index, 'title')" x-text="project.title"></h4>
-                                        <p class="text-slate-600 text-sm mb-6 line-clamp-3 editable-field" 
+                                        <p class="text-slate-600 text-xs mb-4 line-clamp-4 leading-relaxed editable-field" 
                                            :contenteditable="editMode" @blur="updateArrayItem($event, 'projects', index, 'summary')" x-text="project.summary"></p>
                                     </div>
-                                    <button @click="currentView = 'project-' + project.id" class="text-xs font-bold text-indigo-600 hover:text-indigo-900 inline-flex items-center gap-1">
+                                    <button @click="currentView = 'project-' + project.id" class="text-xs font-bold text-emerald-600 group-hover:text-emerald-800 inline-flex items-center gap-1 mt-2 pt-2 border-t border-slate-50 w-full">
                                         Open Research Brief &rarr;
                                     </button>
                                 </div>
@@ -163,12 +186,12 @@
                 <!-- PRINCIPAL INVESTIGATOR DOSSIER -->
                 <div x-show="currentView === 'pi'" x-cloak class="bg-white border border-slate-200 rounded-2xl p-8 shadow-xs grid md:grid-cols-3 gap-8">
                     <div class="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-slate-100 pb-6 md:pb-0 md:pr-6">
-                        <div class="w-32 h-32 bg-indigo-50 border-2 border-indigo-100 text-indigo-500 rounded-2xl flex items-center justify-center mb-4 shadow-inner">
+                        <div class="w-32 h-32 bg-emerald-50 border-2 border-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 shadow-inner">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 editable-field" :contenteditable="editMode" @blur="updateField($event, 'piName')" x-text="siteData.piName"></h3>
                         <p class="text-xs text-slate-500 font-medium mt-0.5 editable-field" :contenteditable="editMode" @blur="updateField($event, 'piTitle')" x-text="siteData.piTitle"></p>
-                        <p class="text-xs text-indigo-600 font-mono font-bold mt-3 border border-indigo-100 bg-indigo-50/50 px-2.5 py-1 rounded-md editable-field" :contenteditable="editMode" @blur="updateField($event, 'piEmail')" x-text="siteData.piEmail"></p>
+                        <p class="text-xs text-emerald-700 font-mono font-bold mt-3 border border-emerald-100 bg-emerald-50/50 px-2.5 py-1 rounded-md editable-field" :contenteditable="editMode" @blur="updateField($event, 'piEmail')" x-text="siteData.piEmail"></p>
                     </div>
                     
                     <div class="md:col-span-2 space-y-6">
@@ -191,7 +214,7 @@
                 <!-- RESOURCE REPOSITORIES & DATA INDEX -->
                 <div x-show="currentView === 'resources'" x-cloak class="space-y-6">
                     <div class="border-b border-slate-200 pb-4">
-                        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Shared Assets & Tooling</h2>
+                        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Shared Assets & Clinical Tooling</h2>
                     </div>
                     <div class="grid sm:grid-cols-2 gap-4">
                         <template x-for="(resource, index) in siteData.resources" :key="index">
@@ -199,11 +222,11 @@
                                 <div>
                                     <div class="flex justify-between items-start gap-2 mb-2">
                                         <h3 class="text-sm font-bold text-slate-900 editable-field" :contenteditable="editMode" @blur="updateArrayItem($event, 'resources', index, 'name')" x-text="resource.name"></h3>
-                                        <span class="bg-indigo-50 border border-indigo-100 text-indigo-700 font-mono text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider whitespace-nowrap editable-field" :contenteditable="editMode" @blur="updateArrayItem($event, 'resources', index, 'type')" x-text="resource.type"></span>
+                                        <span class="bg-emerald-50 border border-emerald-100 text-emerald-700 font-mono text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider whitespace-nowrap editable-field" :contenteditable="editMode" @blur="updateArrayItem($event, 'resources', index, 'type')" x-text="resource.type"></span>
                                     </div>
                                     <p class="text-xs text-slate-600 leading-relaxed mb-4 editable-field" :contenteditable="editMode" @blur="updateArrayItem($event, 'resources', index, 'description')" x-text="resource.description"></p>
                                 </div>
-                                <a :href="resource.url" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-900 flex items-center gap-1 self-start pt-2 border-t border-slate-50 w-full">
+                                <a :href="resource.url" target="_blank" class="text-xs font-bold text-emerald-600 hover:text-emerald-900 flex items-center gap-1 self-start pt-2 border-t border-slate-50 w-full">
                                     Source Repository / Link &rarr;
                                 </a>
                             </div>
@@ -227,52 +250,93 @@
                 editMode: false,
                 previewLayout: 'split',
                 currentView: 'home',
+                newProjectUrlId: '',
                 
                 siteData: {
-                    labName: "Vance Lab for Autonomous Micro-Networks",
-                    university: "Institute for Cyber-Physical Science & Systems",
-                    heroTitle: "Investigating distributed processing array drift over non-linear hardware matrices.",
-                    heroDescription: "Our team models low-power signal optimization routines across unpredictable topology systems. By optimizing data payloads directly at edge collection centers, we establish robust micro-computing layers built for remote grid deployments.",
-                    piName: "Dr. Evelyn Vance, PhD",
-                    piTitle: "Principal Investigator & Chair of Distributed Computing Systems",
-                    piEmail: "e.vance@institutional-node.edu",
-                    piBio: "Dr. Evelyn Vance guides the structural computational matrices program. Her primary initiatives target lowering algorithmic footprint allocations within hardware architectures to maximize localized edge decision speeds.",
+                    labName: "Campbell Research Group",
+                    university: "Orlando College of Osteopathic Medicine Research",
+                    heroTitle: "Investigating osteopathic biomechanics and neuromuscular adaptation systems.",
+                    heroDescription: "Our team explores structural tissue adaptations, musculoskeletal equilibrium modeling, and modern integrated clinical physiological interfaces. By gathering real-world structural data, we aim to design data-driven osteopathic treatment pathways.",
+                    piName: "Christopher O. Campbell, MS, PhD",
+                    piTitle: "Principal Investigator",
+                    piEmail: "ccampbell@ocom.org",
+                    piBio: "Dr. Christopher O. Campbell oversees the integrated clinical biomechanics laboratory programs. His primary initiatives target capturing subtle somatic tissue dynamics via advanced structural arrays to maximize long-term therapeutic accuracy.",
                     
                     projects: [
                         {
-                            id: "mesh-topology",
-                            title: "Dynamic Drift Resolution inside Unstructured Arrays",
-                            summary: "Engineering real-time algorithmic frameworks to correct telemetry spatial errors natively inside low-power remote sensors.",
-                            description: "When structural localized devices drift due to fluctuating environments, central processing nodes typically bear the load of calibration logic. This operational agenda explores transferring drift correction matrices straight down to the base chip array layout level, saving substantial network bandwidth.",
-                            funding: "Federal Science Foundation Grant (#2026-CS-481)",
-                            status: "Validation Phase 2"
+                            id: "somatic-biomechanics",
+                            title: "1. Quantitative Structural Drift inside Somatic Tissue Formations",
+                            summary: "Engineering real-time physiological modeling tracking matrices to observe neuromuscular changes natively.",
+                            description: "When dynamic musculoskeletal models change under progressive mechanical stress, traditional diagnostic sweeps fail to isolate transient micro-drifts. This operational agenda explores utilizing edge-based multi-point capture maps to isolate specific somatic structural anomalies.",
+                            funding: "Biomedical Innovation Endowment (#2026-OM-910)",
+                            status: "Active"
                         },
                         {
-                            id: "neuromorphic-scaling",
-                            title: "Resource-Constrained Neuromorphic Scaling Modules",
-                            summary: "Compressing dense intelligence pipelines onto microcontrollers using sparse layout optimization layers.",
-                            description: "Deep analytics functions remain heavily locked behind intensive server frameworks. This research initiative scales down matrix structures to accommodate processing inside low-power edge arrays without sacrificing local analytical outcomes.",
-                            funding: "Advanced Automation Cluster Initiative",
-                            status: "Active Field Deployment"
+                            id: "neuromuscular-tracking",
+                            title: "2. Micro-Sensor Array Topologies for Neuromuscular Calibration",
+                            summary: "Deploying high-precision physical telemetry tracking models to analyze neuromuscular balance.",
+                            description: "Isolating mechanical pathway discrepancies requires fast, continuous physical readings. This project develops highly compressed algorithmic filters to compute skeletal alignment parameters directly on body-worn tracking modules without requiring remote cloud processing blocks.",
+                            funding: "Integrated Health Systems Council",
+                            status: "Active"
+                        },
+                        {
+                            id: "fascial-remodeling",
+                            title: "3. Myofascial Force Transmission & Elastic Remodeling Rates",
+                            summary: "Investigating long-term fascial reorganization properties following directed mechanical load application models.",
+                            description: "This project explores cellular-level remodeling shifts inside connective fascial structures when exposed to isolated structural load intervals over long durations.",
+                            funding: "Osteopathic Foundations Trust",
+                            status: "Active"
+                        },
+                        {
+                            id: "postural-equilibrium",
+                            title: "4. Dynamic Postural Equilibrium & Autonomic Afferent Feedback",
+                            summary: "Correlating high-speed visual balance measurements with autonomic telemetry to calculate stability markers.",
+                            description: "By capturing fine muscular adjustments alongside neurological telemetry parameters, we hope to establish clearer models mapping out balance control loops.",
+                            funding: "Clinical Diagnostics Intramural Fund",
+                            status: "Active"
+                        },
+                        {
+                            id: "somatic-visceral",
+                            title: "5. Somatovisceral Reflex Pathways in Chronic Pain Modalities",
+                            summary: "Mapping visceral reflex changes during targeted somatic sensory tracking intervals.",
+                            description: "This strand evaluates neurological cross-talk taking place inside deep tissue matrices during long-term diagnostic tracking arrays.",
+                            funding: "National Institutes of Health Partnership",
+                            status: "Active"
+                        },
+                        {
+                            id: "cranial-fluid",
+                            title: "6. Fluid Dynamics Modeling in Cranial Micro-Compressions",
+                            summary: "Simulating fluid velocity shifts within complex tissue cavities during micro-mechanical adjustments.",
+                            description: "Utilizing modern custom computer modeling algorithms to measure shifts within targeted anatomical fluid channels during non-invasive clinical evaluations.",
+                            funding: "Advanced Fluid Analytics Lab Collaboration",
+                            status: "Active"
+                        },
+                        {
+                            id: "lymphatic-drainage",
+                            title: "7. Osteopathic Lymphatic Pump Mechanisms & Immunological Clearance",
+                            summary: "Measuring peripheral cellular clear rates during variable-frequency passive movement sequences.",
+                            description: "This clinical trial maps out fluid clearance pathways by monitoring specific metabolic tracer drops following clinical mechanical interventions.",
+                            funding: "Federal Healthcare Resource Grant",
+                            status: "Active"
                         }
                     ],
                     
                     publications: [
-                        "Vance, E. 'Localized Drift Correction Strategies in Dynamic Mesh Frameworks.' Academic Press for Automation Systems, 2025.",
-                        "Vance, E., & Miller, R. 'Scaling Matrix Matrices for Real-Time Edge Processing Blocks.' International Symposium on Compute Topologies, 2024."
+                        "Campbell, C. O. 'Quantitative Micro-Drift Assessments in Somatic Tissue Architectures.' Journal of Osteopathic Clinical Analytics, 2025.",
+                        "Campbell, C. O., & Davis, M. 'Localized Matrix Transformations for Precision Musculoskeletal Tracking Arrays.' International Bio-Mechanics Review, 2024."
                     ],
                     
                     resources: [
                         {
-                            name: "Micro-Network Calibration Framework v1.0",
+                            name: "Neuromuscular Calibration Toolbox v2.1",
                             type: "C++ Library",
-                            description: "Our core structural engine optimized to manage calculations natively inside embedded systems boards.",
+                            description: "Our proprietary open-source toolkit optimized to compute mechanical stress vectors directly on portable monitoring components.",
                             url: "#"
                         },
                         {
-                            name: "Environmental Drift Log Matrix",
+                            name: "Somatic Tissue Tracking Matrix Data Pool",
                             type: "Raw Data Pool",
-                            description: "Openly accessible dataset containing 18 months of baseline testing recordings from various remote sensor locations.",
+                            description: "Publicly accessible telemetry collection consisting of anonymized muscle balance readings cataloged over continuous testing intervals.",
                             url: "#"
                         }
                     ]
@@ -289,6 +353,40 @@
                     this.editMode = !this.editMode;
                     if (!this.editMode) {
                         localStorage.setItem('upgraded_lab_workspace_data', JSON.stringify(this.siteData));
+                    }
+                },
+
+                addNewStrand() {
+                    const cleanId = this.newProjectUrlId.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+                    if(!cleanId) {
+                        alert("Please enter a valid URL-friendly identifier text (letters, dashes, or numbers only).");
+                        return;
+                    }
+                    
+                    // Verify uniqueness
+                    const detailsExist = this.siteData.projects.some(p => p.id === cleanId);
+                    if(detailsExist) {
+                        alert("A research strand with that URL identifier already exists.");
+                        return;
+                    }
+
+                    // Append project object structure
+                    this.siteData.projects.push({
+                        id: cleanId,
+                        title: "New Research Initiative Placeholder",
+                        summary: "Click directly on this description card while in Edit Mode to completely update this project's overview abstract narrative.",
+                        description: "This is your comprehensive project abstract detail template. Explain the primary hypotheses, experimental methods, and clinical goals of the project here.",
+                        funding: "Specify Funding Body / Internal Allotment",
+                        status: "Active"
+                    });
+
+                    this.newProjectUrlId = ''; // Reset input array field
+                    alert(`Project Pipeline "${cleanId}" created successfully! Scroll down or hit the 'Research' navigation tab to view.`);
+                },
+
+                removeStrand(index) {
+                    if(confirm("Are you sure you want to permanently delete this research strand from the core database?")) {
+                        this.siteData.projects.splice(index, 1);
                     }
                 },
 
