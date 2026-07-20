@@ -10,7 +10,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col" x-data="labApp()" x-init="init()">
 
-    <!-- Production Control Panel -->
+    <!-- Workspace Header -->
     <div class="bg-slate-900 border-b border-slate-800 text-white px-6 py-4 flex flex-col gap-4 sticky top-0 z-50 shadow-md">
         <div class="flex flex-wrap justify-between items-center w-full">
             <div class="flex items-center space-x-4">
@@ -27,23 +27,16 @@
                 </div>
             </div>
         </div>
-        <div x-show="editMode" x-cloak class="bg-slate-950 p-3 rounded-lg border border-slate-850 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <span class="text-slate-400">Add custom strand URL tag:</span>
-            <div class="flex gap-2">
-                <input type="text" x-model="newId" placeholder="e.g. cellular-assays" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white text-xs w-40">
-                <button @click="addNewStrand()" class="bg-emerald-600 px-3 py-1 rounded font-bold text-white hover:bg-emerald-500">➕ Add Research Strand</button>
-            </div>
-        </div>
     </div>
 
     <div class="flex-grow flex flex-col md:flex-row min-h-0">
         <!-- Live Data Matrix Panel -->
         <div x-show="editMode && previewLayout === 'split'" x-cloak class="w-full md:w-5/12 bg-slate-900 text-emerald-400 p-6 overflow-y-auto font-mono text-xs border-r border-slate-800">
-            <h3 class="text-slate-400 uppercase tracking-wider text-xs font-bold mb-2">Live JSON Output Tracking</h3>
+            <h3 class="text-slate-400 uppercase tracking-wider text-xs font-bold mb-2">Live Database Matrix</h3>
             <pre class="bg-slate-950 p-4 rounded-lg overflow-x-auto whitespace-pre-wrap text-[11px]" x-text="JSON.stringify(siteData.projects, null, 2)"></pre>
         </div>
 
-        <!-- Rendered Interactive Canvas -->
+        <!-- Main Workspace View Canvas -->
         <div class="flex-grow flex flex-col overflow-y-auto w-full" :class="editMode && previewLayout === 'split' ? 'md:w-7/12' : ''">
             <header class="bg-white border-b border-slate-200 py-6 px-8">
                 <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -61,7 +54,7 @@
             </header>
 
             <main class="flex-grow max-w-5xl w-full mx-auto px-8 py-12">
-                <!-- Overview View -->
+                <!-- Overview / Landing Module -->
                 <div x-show="view === 'home'" x-cloak class="space-y-12">
                     <section class="border-l-4 border-emerald-600 pl-6 space-y-2">
                         <h2 class="text-2xl font-extrabold text-slate-900 ef" :contenteditable="editMode" @blur="siteData.heroTitle = $event.target.innerText.trim()" x-text="siteData.heroTitle"></h2>
@@ -75,8 +68,7 @@
                                 <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow group">
                                     <div>
                                         <div class="flex justify-between items-center mb-2 text-[10px]">
-                                            <span class="bg-slate-100 px-2 py-0.5 rounded text-slate-500 font-mono font-bold uppercase tracking-wider" x-text="project.status"></span>
-                                            <button x-show="editMode" @click.stop="removeStrand(index)" class="text-rose-600 font-bold hover:underline">Remove</button>
+                                            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-mono font-bold uppercase tracking-wider" x-text="project.status"></span>
                                         </div>
                                         <h4 class="text-base font-bold text-slate-900 mb-2 leading-snug ef" :contenteditable="editMode" @blur="project.title = $event.target.innerText.trim()" x-text="project.title"></h4>
                                         <p class="text-slate-600 text-xs mb-4 line-clamp-4 leading-relaxed ef" :contenteditable="editMode" @blur="project.summary = $event.target.innerText.trim()" x-text="project.summary"></p>
@@ -88,14 +80,14 @@
                     </section>
                 </div>
 
-                <!-- Deep Project View / Catalog -->
+                <!-- Deep Research Catalyst Sections -->
                 <div x-show="view === 'projects' || view.startsWith('p-')" x-cloak class="space-y-6">
                     <div x-show="view.startsWith('p-')">
                         <button @click="view = 'projects'" class="text-xs font-bold text-slate-500 hover:text-slate-900 border border-slate-200 bg-white px-3 py-1.5 rounded-lg shadow-sm">&larr; Back to Strand Grid</button>
                     </div>
 
                     <div x-show="view === 'projects'" class="space-y-4">
-                        <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Active Research Portfolios</h2>
+                        <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Primary Operational Catalogs</h2>
                         <div class="space-y-3">
                             <template x-for="project in siteData.projects" :key="'cat-'+project.id">
                                 <div class="bg-white border border-slate-200 rounded-xl p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -103,7 +95,7 @@
                                         <h3 class="text-base font-bold text-slate-900" x-text="project.title"></h3>
                                         <p class="text-xs text-slate-600 mt-1" x-text="project.summary"></p>
                                     </div>
-                                    <button @click="view = 'p-' + project.id" class="bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-slate-800 whitespace-nowrap">View Blueprint</button>
+                                    <button @click="view = 'p-' + project.id" class="bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-slate-800 whitespace-nowrap">View Research Blueprint</button>
                                 </div>
                             </template>
                         </div>
@@ -114,11 +106,11 @@
                             <h2 class="text-xl font-black text-slate-900 ef" :contenteditable="editMode" @blur="project.title = $event.target.innerText.trim()" x-text="project.title"></h2>
                             <div class="grid sm:grid-cols-2 gap-4 border-t border-b border-slate-100 py-3 bg-slate-50 px-4 rounded-xl text-xs">
                                 <div>
-                                    <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Sustaining Agency</span>
+                                    <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Sustaining Agency Matrix</span>
                                     <span class="font-semibold text-slate-800 ef" :contenteditable="editMode" @blur="project.funding = $event.target.innerText.trim()" x-text="project.funding"></span>
                                 </div>
                                 <div>
-                                    <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Operational Phase</span>
+                                    <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Operational Phase Status</span>
                                     <span class="font-semibold text-slate-800 ef" :contenteditable="editMode" @blur="project.status = $event.target.innerText.trim()" x-text="project.status"></span>
                                 </div>
                             </div>
@@ -130,7 +122,7 @@
                     </template>
                 </div>
 
-                <!-- PI Profile View -->
+                <!-- PI Profile Dossier -->
                 <div x-show="view === 'pi'" x-cloak class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm grid md:grid-cols-3 gap-8">
                     <div class="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-slate-100 pb-6 md:pb-0 md:pr-6">
                         <div class="w-28 h-28 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 shadow-inner border border-emerald-100">
@@ -138,15 +130,15 @@
                         </div>
                         <h3 class="text-base font-bold text-slate-900 ef" :contenteditable="editMode" @blur="siteData.piName = $event.target.innerText.trim()" x-text="siteData.piName"></h3>
                         <p class="text-xs text-slate-500 font-medium mt-0.5 ef" :contenteditable="editMode" @blur="siteData.piTitle = $event.target.innerText.trim()" x-text="siteData.piTitle"></p>
-                        <p class="text-xs text-emerald-700 font-mono font-bold mt-3 border border-emerald-100 bg-emerald-50/50 px-2.5 py-1 rounded-md ef" :contenteditable="editMode" @blur="siteData.piEmail = $event.target.innerText.trim()" x-text="siteData.piEmail"></h1>
+                        <p class="text-xs text-emerald-700 font-mono font-bold mt-3 border border-emerald-100 bg-emerald-50/50 px-2.5 py-1 rounded-md ef" :contenteditable="editMode" @blur="siteData.piEmail = $event.target.innerText.trim()" x-text="siteData.piEmail"></p>
                     </div>
                     <div class="md:col-span-2 space-y-6">
                         <div class="space-y-1">
-                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Dossier Overview</h3>
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Dossier Biography</h3>
                             <p class="text-slate-700 text-xs leading-relaxed ef whitespace-pre-wrap" :contenteditable="editMode" @blur="siteData.piBio = $event.target.innerText.trim()" x-text="siteData.piBio"></p>
                         </div>
                         <div class="space-y-2">
-                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Active Records & Literature</h3>
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Selected Works & Presentations</h3>
                             <ul class="space-y-2 text-slate-700 text-xs">
                                 <template x-for="(pub, idx) in siteData.publications" :key="idx">
                                     <li class="border-l-2 border-slate-200 pl-3 py-1 bg-slate-50/50 ef" :contenteditable="editMode" @blur="siteData.publications[idx] = $event.target.innerText.trim()" x-text="pub"></li>
@@ -156,7 +148,7 @@
                     </div>
                 </div>
 
-                <!-- Resources View -->
+                <!-- Resources Tooling View -->
                 <div x-show="view === 'resources'" x-cloak class="space-y-6">
                     <h2 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Shared Operational Asset Index</h2>
                     <div class="grid sm:grid-cols-2 gap-4">
@@ -182,107 +174,62 @@
         </div>
     </div>
 
-    <!-- System Engine Matrix -->
+    <!-- Application Script Data Core Engine -->
     <script>
         function labApp() {
             return {
                 editMode: false,
-                previewLayout: 'split',
+                previewLayout: 'full',
                 view: 'home',
-                newId: '',
                 siteData: {
                     labName: "Campbell Research Group",
                     university: "Orlando College of Osteopathic Medicine Research",
-                    heroTitle: "Advancing translational clinical frameworks via geospatial mapping, algorithmic pharmacovigilance datasets, and functional multi-omic pathogen networks.",
-                    heroDescription: "The group builds computational engines to examine clinical vulnerabilities. Our active scopes isolate healthcare supply deserts, map adaptive mutations within emerging strains, and chart disproportionality adverse-event configurations across clinical biological systems.",
+                    heroTitle: "Translational research clusters connecting real-world evidence analytics, multi-omic sequence mapping, and cloud metagenomic surveillance.",
+                    heroDescription: "The group fields standardized computational architectures to evaluate public health patterns. Our active operations run from mining deep electronic health registries to tracing structural virulence markers inside evolving pathogen topologies.",
                     piName: "Christopher O. Campbell, MS, PhD",
                     piTitle: "Principal Investigator",
                     piEmail: "ccampbell@ocom.org",
-                    piBio: "Dr. Christopher O. Campbell coordinates cross-disciplinary health informatics, molecular analysis pipelines, and outcome screening protocols at the Orlando College of Osteopathic Medicine. His focus centers on parsing uncharacterized sequence variations and mapping systemic clinical monitoring datasets.",
+                    piBio: "Dr. Christopher O. Campbell oversees integrated health outcome informatics, pathogen sequence modeling, and translational medical surveillance tracks at the Orlando College of Osteopathic Medicine. His team specializes in mapping big-data healthcare registries and cloud workflow paradigms into clinically actionable frameworks.",
                     projects: [
                         {
-                            id: "faers-biologics",
-                            title: "1. FAERS Disproportionality Profiles of Type-2 Biologics in CRSwNP Patients",
-                            summary: "An intensive retrospective pharmacovigilance evaluation investigating distinct adverse-event metrics for Dupilumab versus Mepolizumab when filtered for chronic rhinosinusitis with nasal polyps.",
-                            description: "This structural analysis parses 27,052 dupilumab cases and 1,113 mepolizumab cases extracted from the FDA Adverse Event Reporting System (FAERS) stretching from Q1 2015 to Q4 2025. Using a hardened six-metric configuration (encompassing ROR, PRR, BCPNN/IC, MGPS/EBGM, Chi-Square, and Logistic Regression testing matrices), the study isolates indicator trends.\n\nResults reveal that while dupilumab signals center on ocular clusters (e.g., dry eye, blurred vision) and predictable localized subcutaneous injection reactions, mepolizumab exhibits elevated relative risk scores for medically complex respiratory, cardiac, and hematologic adverse profiles. Additionally, sub-cohort stratification demonstrates that female populations and individuals dependent on active systemic Oral Corticosteroid (OCS) co-therapy show significantly amplified symptom tracking trends. Time-to-onset data parsed via Weibull distribution shape profiles suggest early-failure trends following initial baseline therapy introduction cycles.",
-                            funding: "OCOM Intramural Portfolio Allotment",
-                            status: "Active Analysis"
+                            id: "trinetx-tirzepatide",
+                            title: "1. Head-to-Head Renal Impact of Tirzepatide vs. Semaglutide vs. SGLT2i in MASLD Patients",
+                            summary: "An electronic health record database study evaluating Major Adverse Kidney Events (MAKE) and Acute Kidney Injury risks across matched metabolic dysfunction-associated steatotic liver disease cohorts.",
+                            description: "The Medical Gap & Rationale:\nMetabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) affects over 30% of adults globally and significantly increases the risk for 'Hepatorenal Syndrome' and chronic low-grade kidney injury[cite: 5]. While clinical trials show Tirzepatide (dual GIP/GLP-1 receptor agonist) is highly effective at hepatic fat clearance, its real-world head-to-head comparative renal impact inside MASLD cohorts remains uncharacterized in current literature[cite: 5]. This study resolves a prominent clinical dilemma: whether to prescribe SGLT2 inhibitors (with proven, classic hemodynamic renal benefits) or modern dual incretin agonists (with superior weight loss and hepatic clearance) to liver-compromised populations facing renal vulnerabilities[cite: 5].\n\nResearch Protocol & Methods:\nThis retrospective protocol leverages the TriNetX Global/US Research Networks, tracking cohorts defined via ICD-10 diagnosis markers (K76.0, K75.81)[cite: 5]. Three distinct patient matrices are established based on initial drug exposure: Cohort A (Tirzepatide), Cohort B (Semaglutide), and Cohort C (SGLT2 Inhibitors)[cite: 5]. To eliminate baseline selection biases, cohorts undergo strict 1:1:1 Propensity Score Matching (PSM) adjusting for baseline demographics, advanced metabolic comorbidities (Type 2 Diabetes, Hypertension, Heart Failure, chronic kidney disease stages 1-3), concurrent medication registries (ACEi/ARBs, NSAIDs, diuretics), and pre-index lab values (eGFR, Serum Creatinine, HbA1c, liver transaminases, and FIB-4 scores)[cite: 5].\n\nPrimary & Secondary Endpoints:\n- Primary Outcome: Major Adverse Kidney Events (MAKE-30/90/365), computed as a composite endpoint of a persistent >=40% drop in eGFR, initiation of new-onset End-Stage Renal Disease (ESRD) or renal replacement therapy, and all-cause mortality[cite: 5].\n- Secondary Outcome: Incidence of Acute Kidney Injury (AKI), tracked via explicit diagnosis codes or an un-confounded >=50% serum creatinine spike within 12 months[cite: 5].\n\nClinical Insights & Paper Impact:\nData outcomes resolve critical cost-benefit and therapeutic debates: demonstrating if dual agonism establishes synergistic metabolic reno-protection, if direct hemodynamic intraglomerular lowering remains superior, or if GIP action adds marginal true protective value beyond standard single-receptor GLP-1 therapy lines[cite: 5].",
+                            funding: "TriNetX Analytics Research Allotment",
+                            status: "Active Tracking"
                         },
                         {
-                            id: "pathogen-language-models",
-                            title: "2. Annotation of Pathogen 'Functional Dark Matter' Using Genomic Language Models",
-                            summary: "Deploying context-aware deep-learning embeddings and multi-tiered operon synteny AI screening to categorize uncharacterized bacterial open reading frames.",
-                            description: "Up to 40-60% of open reading frames found within high-priority reference bacterial genomes remain categorized as hypothetical or completely uncharacterized proteins, preventing deep insights into drug resistance vectors. This long-term study sets up an automated annotation pipeline utilizing SeqHub (Tatta Bio) to systematic process target genomic strands.\n\nThe 5-month modular roadmap tracks sequence candidates across multi-tiered analytics loops: sequence patterns are evaluated via massive genomic language model embeddings, protein physical interactomes are resolved using FlashPPI to trace interaction partner pathways, and context-aware machine agents parse gene neighborhood operon locations (synteny). Early testing layers successfully assign high-confidence biological functional classifications to hidden efflux pump configurations, cell-wall modification modules, and novel virulence constraints.",
-                            funding: "Pathogen Proteomics Endowment",
-                            status: "Pipeline Run"
+                            id: "pathogen-annotation",
+                            title: "2. Systematic Annotation of 'Hypothetical' Loci via Genomic Language Models",
+                            summary: "Decoding microbial pathogen functional dark matter through deep learning embeddings, FlashPPI interactome modeling, and context-aware synteny agents.",
+                            description: "Statement of Problem:\nDespite rapid advancements in whole-genome sequencing, up to 40–60% of proteins encoded by microbial pathogens remain classified as uncharacterized 'hypothetical' proteins[cite: 3]. Standard homology alignment tools like BLAST frequently fail on hyperdivergent loci, leaving significant gaps in our understanding of pathogen virulence, stress response, and drug resistance mechanisms[cite: 3].\n\nComputational Pipeline Architecture:\nThis framework utilizes SeqHub (Tatta Bio) to decode the uncharacterized 'functional dark matter' of high-priority microbial pathogens (e.g., Pseudomonas aeruginosa, Mycobacterium tuberculosis, Acinetobacter baumannii) across a standardized 5-month modular roadmap[cite: 3]:\n- Month 1 (Pathogen Selection & Dataset Upload): Pulling reference fasta (.fasta) and annotation files (.gff) from public repositories to establish proportion baselines for proteins of unknown function (PUF)[cite: 3].\n- Month 2 (Uncharacterized Proteome Filtering): Isulating uncharacterized sequences and deploying initial SeqHub batch annotations to evaluate hidden domain patterns and language model sequence embeddings down to 10-30 top priority candidates[cite: 3].\n- Month 3 (Interactome & Context Mapping): Processing physical proteome interactomes using FlashPPI to infer functional pathways by association, while running SeqHub AI Agents to evaluate local genomic neighborhood context (operon synteny)[cite: 3].\n- Month 4 (In Silico Validation): Cross-referencing deep learning predictions against traditional alignment matrices (BLAST, InterProScan) to isolate classical tool failures and evaluate published phenotypic knock-out data[cite: 3].\n- Month 5 (Synthesis & Presentation): Constructing final structural subnetwork graphs and taxonomy pie charts detailing before-vs-after annotation metrics[cite: 3].\n\nSignificance:\nThis flexible framework maps structural data into clear functional hypotheses, enabling investigators to rapidly locate unknown efflux pump subunits, anti-phage defense inhibitors, or cell-wall modification enzymes[cite: 3].",
+                            funding: "Computational Biology Initiative Support",
+                            status: "Pipeline Execution"
                         },
                         {
-                            id: "h5n1-metagenomics",
-                            title: "3. Metagenomic Surveillance Platform: Tracking Mammalian Mutations in H5N1",
-                            summary: "Configuring automated Nextflow pipelines hosted on Cloud architectures to isolate spatiotemporal lineages and replication mutations inside Avian Influenza strains.",
-                            description: "This viral monitoring tracking cluster designs production-grade data collection frameworks tracking the ongoing H5N1 global panzootic. The pipeline downloads public sequence records across avian, dairy cattle, and clinical human samples retrieved from the GISAID and NCBI Virus platforms.\n\nBy executing automated workflows (such as nf-core/viralrecon and nf-core/funcscan) optimized via container systems on the Seqera execution platform, the team screens for key amino acid alterations. The study specifically maps critical replication mutations like PB2 E627K or D701N that control host-jumping capabilities into mammalian reservoirs. Lineages are further compiled into maximum-likelihood phylodynamic trees and exported to Nextstrain layouts for clear public health geospatial tracking.",
-                            funding: "Viral Dynamics Monitoring Fund",
+                            id: "h5n1-surveillance",
+                            title: "3. Scalable Metagenomic Surveillance & Transmission Modeling of H5N1",
+                            summary: "Deploying automated Nextflow execution profiles on the Seqera cloud system to trace geographic spillover and mammalian-adaptive mutations in Avian Influenza.",
+                            description: "Project Objective:\nTo configure and deploy production-grade metagenomic tracking environments using open-source workflows deployed by global public health agencies (WHO, CDC) to map global viral diversity and track the spatiotemporal evolution of the ongoing H5N1 avian influenza panzootic[cite: 4].\n\nMethods & 5-Month Research Curriculum:\n- Month 1 (Data Acquisition & Ethical Mining): Sourcing complete H5N1 genome data matrices across avian, dairy cattle, and human hosts from public repositories (GISAID, NCBI Virus) and filtering metadata parameters for geographic coordinates and capture windows[cite: 4].\n- Month 2 (Production Pipeline Configuration): Launching and tuning nf-core/viralrecon or nf-core/funcscan pipelines within the automated Seqera Platform environment, configuring Docker, Singularity, or Conda/Mamba container profiles for audit-ready compliance[cite: 4].\n- Month 3 (Molecular Variant Calling): Executing high-throughput alignments to isolate critical mutations linked to mammalian adaptation (notably tracking PB2 E627K or D701N changes controlling mammalian replication advantages) and screening variations against established neuraminidase inhibitor resistance databases[cite: 4].\n- Month 4 (Phylodynamics & Spatial Tracking): Building maximum-likelihood phylogenetic tree hierarchies using Nextflow IQ-TREE modules and deploying Nextstrain tracking engines to map geographic dissemination lineages[cite: 4].\n- Month 5 (Actionable Deliverables): Creating publication-ready mutation frequency plots via Seqera Studios and assembling public health insights for abstract selection[cite: 4].\n\nSignificance:\nThis cloud-driven surveillance framework removes local hardware compilation barriers, allowing researchers with minimal baseline coding backgrounds to isolate crucial spillover indicators smoothly[cite: 4].",
+                            funding: "Global Pathogen Surveillance Fund",
                             status: "Data Ingestion"
-                        },
-                        {
-                            id: "apicoplast-fikk",
-                            title: "4. Structural Characterization of Apicoplast FIKK9.1 Kinase in P. falciparum",
-                            summary: "Homology modeling and in silico docking targeting unique regulatory nodes inside the essential secondary endosymbiotic organelle of Malaria parasites.",
-                            description: "The Plasmodium falciparum apicoplast organelle is an essential target for selective drug interventions because it originates from secondary endosymbiosis, making its metabolic machinery completely distinct from human host cells. This project performs functional structural mapping on the apicoplast-localized serine/threonine protein kinase FIKK9.1 (PF3D7_0902000).\n\nUsing sequence tools including ProtParam alongside structural homology packages (SWISS-MODEL), the team localized a stable, soluble catalytic core mapping residues 172-539, noting an absence of human protein counter-homologs. Subsequent virtual screening docking arrays mapped against ChEMBL-NTD archives isolated high-affinity candidate inhibitors. Notably, molecule CHEMBL54482 achieved a 10 nM IC50 score with optimal binding coordinates within the ATP pocket, providing strong anchors for new antimalarial developments. This tracking project is selected for poster presentation lines at the Harvard Medical School New England Science Symposium.",
-                            funding: "Biomedical Careers Research Grant",
-                            status: "Abstract Review"
-                        },
-                        {
-                            id: "geospatial-deserts",
-                            title: "5. Identifying Healthcare Deserts: Geospatial Analysis of Florida Census Tracts",
-                            summary: "Mapping hospital distance, bed metrics, and population density weights to categorize geographic delivery gaps across 5,160 state tracts.",
-                            description: "Geographic distance remains a prominent risk factor during acute emergency medical responses. This modeling framework examines 5,160 Florida census tracts by matching data from the 2022 American Community Survey against registered capacity lists for 348 licensed hospitals.\n\nA multi-dimensional composite serviceability algorithm computes index rankings (0-100) based on nearest hospital distance vectors, dense hospital counts within 15 miles, and total bed availability parameters. Findings reveal 357 highly underserved tracts impacting 1.48 million individuals. Critical priority shortfalls are isolated in parts of Collier, Palm Beach, and Brevard counties, establishing an evidence-based optimization model to guide strategic health infrastructure investments. This tracking portfolio is accepted for active research presentations at DO Day on Capitol Hill via Omega Beta Iota.",
-                            funding: "Health Equity Research Allotment",
-                            status: "Presentation Stage"
-                        },
-                        {
-                            id: "epilepsy-proteomics",
-                            title: "6. Post-Translational Modification Prediction in MTLE Epilepsy Proteomes",
-                            summary: "Computational mapping of aberrant ubiquitination and phosphorylation pathways targeting OXR1 and GLRX defense frameworks in Mesial Temporal Lobe Epilepsy.",
-                            description: "Mesial temporal lobe epilepsy with hippocampal sclerosis (MTLE+HS) exhibits a distinctive proteostatic crisis where typical defense barriers combating severe oxidative strain break down. While standard transcriptomic filters identify wide pathway dysregulation, downstream multi-omic data layers show targeted structural downregulation of OXR1 (Oxidation Resistance 1) and GLRX (Glutaredoxin) proteins.\n\nThis structural strand tracks the hypothetical post-translational mechanisms responsible for accelerated clearing rates. By parsing predictive data configurations across functional TLDc clusters and active thioredoxin-like interaction zones, the project aims to identify the specific molecular phosphorylation 'switches' driving premature clearance inside drug-resistant epileptic brain tissues.",
-                            funding: "OCOM Neurological Research Fund",
-                            status: "Active In Silico Modeling"
-                        },
-                        {
-                            id: "fikk-pathogenesis",
-                            title: "7. Structural Virulence Characterization of FIKK Family Kinase PF3D7_0902000",
-                            summary: "Bioinformatic sequencing, stage-specific transcriptomic screening, and active site docking evaluating a unique parasite effector target.",
-                            description: "The unique parasite-encoded FIKK family of serine/threonine protein kinases mediates deep host erythrocyte membrane modifications during critical infectious phases. This structural surveillance project assesses the sequence constraints of node PF3D7_0902000 across ring and trophozoite pathogen expression windows.\n\nPhysicochemical parameter calculations outline a stable 542-amino-acid sequence profile with a distinctive protein kinase-like catalytic space spanning residues 207-540. Virtual ligand screens configured via SwissDock confirm target binding affinity structures. The screening identified high-affinity small-molecule inhibitor CHEMBL54482 binding effectively into the internal ATP site configuration, confirming high therapeutic target potential.",
-                            funding: "Pathogen Virulence Grant",
-                            status: "Data Compilation"
                         }
                     ],
                     publications: [
                         "Lorenzo, A., Sambar, M., Uhlman, A., Campbell, C. O., Sullivan, K. A. 'Disproportionality Analysis of FDA Adverse Event Reporting System (FAERS) Events for Dupilumab and Mepolizumab in Patients with Chronic Rhinosinusitis with Nasal Polyps.' OCOM Research Portfolio, 2026.",
-                        "Vatsa, R., Threatt, S., Mousa, P., Pena, B., Campbell, C. O. 'Computational Characterization of the Apicoplast-Associated FIKK9.1 Serine/Threonine Kinase in Plasmodium falciparum.' Selected for poster presentation at Harvard Medical School NESS, 2026."
+                        "Vatsa, R., Threatt, S., Mousa, P., Pena, B., Campbell, C. O. 'Computational Characterization of the Apicoplast-Associated FIKK9.1 Serine/Threonine Kinase in Plasmodium falciparum.' Selected for presentation at Harvard Medical School NESS, 2026."
                     ],
                     resources: [
-                        { name: "FAERS T2-Biologic Evaluation Suite", type: "R Analytics Script", description: "Automated framework executing deduplication, ROR calculations, and stratified categorical association tables.", url: "#" },
-                        { name: "Seqera Cloud Nextflow Configurations", type: "Deployment Matrix", description: "Hardened automated execution environment templates built to profile H5N1 viral variant strains on cloud systems.", url: "#" }
+                        { name: "TriNetX Cohort Extraction Core", type: "SQL Query Studio", description: "Standardized cohort filtering parameters for MASLD populations, OCS washouts, and MAKE composite endpoint functions.", url: "#" },
+                        { name: "SeqHub AI Agent Environment", type: "Python Library", description: "Scripts managing sequence embedding collection, FlashPPI physical networking inputs, and operon synteny mapping.", url: "#" },
+                        { name: "nf-core/viralrecon Cloud Framework", type: "Nextflow Script", description: "Automated, containerized workflow settings optimized to execute high-throughput H5N1 alignment actions on Seqera.", url: "#" }
                     ]
                 },
                 init() {
                     const cache = localStorage.getItem('upgraded_lab_workspace_data');
                     if (cache) { try { this.siteData = JSON.parse(cache); } catch(e) {} }
-                },
-                addNewStrand() {
-                    const tag = this.newId.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
-                    if (!tag || this.siteData.projects.some(p => p.id === tag)) return alert("Invalid or duplicate ID.");
-                    this.siteData.projects.push({
-                        id: tag, title: "New Initiative Placeholder",
-                        summary: "Click directly on this text in Edit Mode to modify the text layout card instantly.",
-                        description: "Provide complete descriptions of methodology, data parameters, and funding tracking goals here.",
-                        funding: "Internal/External Allotment", status: "Active"
-                    });
-                    this.newId = '';
-                    alert("Strand appended successfully to database array matrices.");
-                },
-                removeStrand(idx) { if (confirm("Delete project?")) this.siteData.projects.splice(idx, 1); }
+                }
             }
         }
     </script>
