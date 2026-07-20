@@ -255,89 +255,130 @@
                 siteData: {
                     labName: "Campbell Research Group",
                     university: "Orlando College of Osteopathic Medicine Research",
-                    heroTitle: "Investigating osteopathic biomechanics and neuromuscular adaptation systems.",
-                    heroDescription: "Our team explores structural tissue adaptations, musculoskeletal equilibrium modeling, and modern integrated clinical physiological interfaces. By gathering real-world structural data, we aim to design data-driven osteopathic treatment pathways.",
+                    heroTitle: "Integrating molecular-scale structural biology and macro-scale spatial epidemiology to address public health disparities.",
+                    heroDescription: "Our research team designs and evaluate pedagogical frameworks that integrate bioinformatics, spatial tools into medical and health professions curricula.",
                     piName: "Christopher O. Campbell, MS, PhD",
                     piTitle: "Principal Investigator",
                     piEmail: "ccampbell@ocom.org",
-                    piBio: "Dr. Christopher O. Campbell oversees the integrated clinical biomechanics laboratory programs. His primary initiatives target capturing subtle somatic tissue dynamics via advanced structural arrays to maximize long-term therapeutic accuracy.",
+                    piBio: "Dr. Campbell’s research focuses on translating complex bioinformatics and spatial data into actionable public health insights and accessible learning frameworks.",
                     
                     projects: [
                         {
-                            id: "somatic-biomechanics",
-                            title: "1. Quantitative Structural Drift inside Somatic Tissue Formations",
-                            summary: "Engineering real-time physiological modeling tracking matrices to observe neuromuscular changes natively.",
-                            description: "When dynamic musculoskeletal models change under progressive mechanical stress, traditional diagnostic sweeps fail to isolate transient micro-drifts. This operational agenda explores utilizing edge-based multi-point capture maps to isolate specific somatic structural anomalies.",
-                            funding: "Biomedical Innovation Endowment (#2026-OM-910)",
+                            id: “Disease Surveillance”,
+                            title: "1. Deploying Scalable Metagenomic Surveillance: Tracking the Evolution and Spread of H5N1 Avian Influenza and its Mammalian Adaptations",
+                            summary: "Use open source tools deployed by global agencies (ex. WHO, CDC) to map viral diversity. Mine the. public genome datasets and run cloud pipelines to pinpoint the crucial mutations",
+                            description: "Use open source tools deployed by global agencies (ex. WHO, CDC) to map viral diversity. Mine the. public genome datasets and run cloud pipelines to pinpoint the crucial mutations that enable host-jumping and then build the phylodynamic models and spatial maps. Work is done using the Seqera platform, so not coding experience required. You will learn the necessary Python/R science as needed throughout the project.
+",
+                            Department: "Specialty Medicine",
+                            status: "Recruiting"
+                        },
+                        {
+                            id: “Protein Characterization”,
+                            title: "2. Systematic Annotation of "Hypothetical" or Uncharacterized Proteins in High-Priority Pathogens Using Genomic Language Models and Context-Aware AI Agents",
+                            summary: "Applying this framework to characterize and annotate pathogen genomes for future drug candidate evaluation",
+                            description: "Despite rapid advancements in whole-genome sequencing, up to 40–60% of proteins encoded by microbial pathogens remain classified as uncharacterized "hypothetical" proteins. Standard homology tools like BLAST frequently fail on hyperdivergent loci, leaving significant gaps in our understanding of pathogen virulence, stress response, and drug resistance mechanisms. In this study, we present a standardized computational framework utilizing SeqHub (Tatta Bio) to systematically decode the "functional dark matter" of high-priority microbial pathogens.",
+                            Department: "Specialty Medicine",
+                            status: "Recruiting"
+                        },
+                        {
+                            id: “Clinical Cohorts”,
+                            title: "3. Comparative Incidence of Major Adverse Kidney Events (MAKE) and Acute Kidney Injury in Patients with Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) Initiating Tirzepatide versus Semaglutide vs. SGLT2 Inhibitors",
+                            summary: "This study uses real-world Electronic Health Record (EHR) data from the TriNetX platform",
+                            description: "This study uses real-world Electronic Health Record (EHR) data from the TriNetX platform to evaluate whether Tirzepatide, a dual GIP/GLP-1 receptor agonist, provides superior renal protection compared to Semaglutide or SGLT2 inhibitors in high-risk patients with Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD). Using 1:1 propensity score matching to balance baseline demographics, comorbidities, and laboratory values, we will track the 1-year incidence of Major Adverse Kidney Events (MAKE) and Acute Kidney Injury (AKI) across matched cohorts. By filling a critical gap in comparative effectiveness literature, this project aims to clarify optimal therapeutic selection for patients navigating concurrent metabolic liver disease and kidney risk.",
+                            Department: "Specialty Medicine",
+                            status: "Recruiting"
+                        },
+                        {
+                            id: “Protein Characterization”,
+                            title: "4. Computational Characterization of the Apicoplast-Associated FIKK9.1 Serine/Threonine Kinase in Plasmodium falciparum",
+                            summary: "Protein kinases and phosphatases play a crucial role in the regulation of the metabolic processes in the apicoplast as they regulate protein activity through reversible phosphorylation.",
+                            description: "Background
+
+The apicoplast is found in Plasmodium and other Apicomplexan parasites, and is unique as it has originated from secondary endosymbiosis, making it evolutionarily distinct from host cell organelles. Since it is unique to parasites and essential for survival, it is a high-value drug target as inhibitors can selectively kill the parasite without harming the host.
+
+The apicoplast is essential for Plasmodium survival because it supports several metabolic pathways that cannot be compensated for by host-derived resources. If the function of the apicoplast is disrupted, it will undergo a delayed death in which the parasite will survive an initial replication cycle but fail in subsequent cycles.
+
+Protein kinases and phosphatases play a crucial role in the regulation of the metabolic processes in the apicoplast as they regulate protein activity through reversible phosphorylation. The kinases catalyze the addition of phosphate groups to serine, threonine, or tyrosine residues, while phosphatases remove these modifications. This process governs enzyme activity, protein localization, protein–protein interactions, and signal transduction pathways that are essential for metabolism, cell cycle progression, and organelle signaling. Consequently, apicoplast-localized kinases represent promising regulatory nodes and potential therapeutic targets in Plasmodium falciparum, as kinases are easy to block with medicine and are historically highly druggable.
+
+Research Question / Hypothesis
+
+It is hypothesized that the conserved apicoplast-associated serine/threonine protein kinase FIKK9.1 (PF3D7_0902000) is a crucial enzyme for parasite development and a potential antimalarial drug target. Its essential role in supporting the parasitic metabolic pathways absent in humans emphasizes its potential as a selective target that could kill the parasite without harming the host.
+
+Methods
+
+The FIKK9.1 protein sequence was obtained from PlasmoDB and UniProt, and analyzed using ProtParam to determine physicochemical properties. Prosite, CDD, CDART, SMART, and the Superfamily were utilized to identify and confirm the conserved domains and signature motifs. The transcriptomic data from PlasmoDB were examined to assess stage-specific expression across the parasite life cycle. Structural characterization was performed through homology modeling using SWISS-MODEL and compared with AlphaFold predictions. Potential small-molecule inhibitors were identified from ChEMBL-NTD and evaluated through molecular docking using SWISS-Dock.
+
+Results
+
+ProtParam analysis predicted that FIKK9.1 is a stable, soluble protein with physicochemical properties consistent with enzymatic activity. Domain analysis identified a conserved serine/threonine protein kinase catalytic domain spanning residues approximately 172–539, including ATP-binding residues and a catalytically active-site motif, which support its classification as a kinase. SMART and BLAST analyses demonstrated strong conservation of FIKK9.1 across Plasmodium species and its lack of close human homologs. Structural modeling revealed a kinase fold suitable for inhibitor binding, and the docking studies identified candidate kinase inhibitors with favorable predicted binding orientations within the active site.
+
+Conclusion
+
+The conserved apicoplast-associated serine/threonine protein kinase FIKK9.1 (PF3D7_0902000) has structural and biochemical features consistent with a regulatory role in Plasmodium falciparum development. Its lack of close human analogs, essential parasitic organelle association, and predicted druggability demonstrate that FIKK9.1 could be a potential target for future antimalarial therapeutic development.",
+                            Department: “Specialty Medicine”,
                             status: "Active"
                         },
                         {
-                            id: "neuromuscular-tracking",
-                            title: "2. Micro-Sensor Array Topologies for Neuromuscular Calibration",
-                            summary: "Deploying high-precision physical telemetry tracking models to analyze neuromuscular balance.",
-                            description: "Isolating mechanical pathway discrepancies requires fast, continuous physical readings. This project develops highly compressed algorithmic filters to compute skeletal alignment parameters directly on body-worn tracking modules without requiring remote cloud processing blocks.",
-                            funding: "Integrated Health Systems Council",
+                            id: “Geospatial Analysis”,
+                            title: "5. Identifying Healthcare Deserts: A Geospatial Analysis of Hospital Serviceability in Florida Census Tracts",
+                            summary: "This project identified the presence of substantial geographic disparities in hospital accessibility across Florida, with critical gaps in densely populated coastal and rural areas.",
+                            description: "Alexander Uhlman
+Abstract 
+Statement of Problem/ Background
+Geographic accessibility to hospitals is a determinant of health outcomes, especially when considering emergency care delivery. Despite Florida’s growing population, systematic assessment of hospital distribution relative to population density remains limited. The objective of this project is to identify and characterize geographic disparities in hospital accessibility across Florida using a multi-dimensional serviceability framework that integrates distance metrics, hospital capacity, and population density data. 
+Research Question/Hypothesis
+Research Design/Methods
+This analysis was conducted across 5,160 census tracts in Florida using the 2022 American Community Survey data and Florida hospital registry information for 348 licensed hospitals. A composite serviceability score (0-100) was developed by incorporating three weighted components… 
+1. Geographic distance to nearest hospital (40%) 
+2. Number of hospitals within 15 miles (35%) 
+3. Bed Capacity per 1,000 population (25%) 
+Census tracts were classified as either Critical (population density ≥1,000/mi² AND score <40), High Priority (≥500/mi² AND score <50), Moderate Priority (≥300/mi² AND score <60), or Adequate based on population density and serviceability thresholds. 
+
+Results/Summary of the Investigation
+The mean serviceability score was 80.1 (SD 20.3), with significant geographic variation. There were a total of 357 underserved census tracts (6.9% of total analyzed tracts) affecting approximately 1.48 million residents (6.6% of state population. Among these, 63 tracts were classified as Critical or High Priority, representing areas with high population density and severely inadequate hospital access. Critical hotspots were concentrated in Collier County (2 tracts in the top 5, population density 5,093-7,604/mi², zero hospitals within 15 miles), Palm Beach County (2 tracts, density 9,220-9,807/mi²), and Brevard County (1 tract, density 3,917-4,277/mi²). The most underserved tract (Collier County Census Tract 113.03) housed 4,311 residents at 7,604/mi² with no hospital access within 17.5 miles. Brevard county was revealed to have the largest underserved population (137,437 residents in 33 tracts), followed by Okaloosa (78,385 residents in 13 tracts). Score distribution showed 60% of tracts rated as
+Excellent (80-100), 30% Good (60-80), 7% Fair (40-60), 2% Poor (20-40), and 1% Critical (0-20). 
+Interpretation/Conclusion of the Investigation
+This project identified the presence of substantial geographic disparities in hospital accessibility across Florida, with critical gaps in densely populated coastal and rural areas. These findings provide an evidence-based framework for strategic healthcare infrastructure investment and policy interventions to address healthcare inequities affecting 1.48 million Floridians.",
+                            Department: “Specialty Medicine”,
                             status: "Active"
                         },
                         {
-                            id: "fascial-remodeling",
-                            title: "3. Myofascial Force Transmission & Elastic Remodeling Rates",
-                            summary: "Investigating long-term fascial reorganization properties following directed mechanical load application models.",
-                            description: "This project explores cellular-level remodeling shifts inside connective fascial structures when exposed to isolated structural load intervals over long durations.",
-                            funding: "Osteopathic Foundations Trust",
+                            id: “Predictive Models”,
+                            title: "6. Computational Prediction of Post-Translational Modifications in OXR1 and GLRX Proteins in Mesial Temporal Lobe Epilepsy with Hippocampal Sclerosis",
+                            summary: "Mesial temporal lobe epilepsy with hippocampal sclerosis (MTLE+HS) is characterized by a "proteostatic crisis" where the cellular defense against oxidative stress is profoundly compromised.",
+                            description: "Mesial temporal lobe epilepsy with hippocampal sclerosis (MTLE+HS) is characterized by a "proteostatic crisis" where the cellular defense against oxidative stress is profoundly compromised. While transcriptomic profiling has identified broad dysregulation of oxidative stress pathways in human TLE tissue, recent integrative multi-omics analysis revealed a potential mechanism: the proteins OXR1 (Oxidation Resistance 1) and GLRX (Glutaredoxin) are consistently downregulated across proteomic platforms (DIA and PRM validation) despite their central role in neuronal survival.
+While rare genomic loss-of-function mutations in OXR1 are known to cause severe neurological phenotypes including epilepsy and cerebellar atrophy,³ the more common acquired downregulation in MTLE leads us to consider if there is a post-translational mechanism. Post-translational modifications (PTMs) are known to be globally altered in TLE tissue, and specific PTMs on OXR1 have been shown to regulate its interaction with antioxidant partners like peroxiredoxins.
+In the context of the glutathione dysregulation and chronic oxidative stress characteristic of the epileptic hippocampus, it is hypothesized that OXR1 and GLRX are targeted for premature degradation. Specifically, aberrant ubiquitination and phosphorylation may serve as molecular "switches" that decrease protein half-life or disrupt functional domains like the TLDc domain in OXR1 or the thioredoxin-like active site in GLRX. Systematically mapping these predicted PTM sites is essential to understanding the bridge between the transcriptomic signatures of disease and the functional failure of the proteome in drug-resistant epilepsy.",
+                            Department: "Specialty Medicine",
                             status: "Active"
                         },
                         {
-                            id: "postural-equilibrium",
-                            title: "4. Dynamic Postural Equilibrium & Autonomic Afferent Feedback",
-                            summary: "Correlating high-speed visual balance measurements with autonomic telemetry to calculate stability markers.",
-                            description: "By capturing fine muscular adjustments alongside neurological telemetry parameters, we hope to establish clearer models mapping out balance control loops.",
-                            funding: "Clinical Diagnostics Intramural Fund",
-                            status: "Active"
-                        },
-                        {
-                            id: "somatic-visceral",
-                            title: "5. Somatovisceral Reflex Pathways in Chronic Pain Modalities",
-                            summary: "Mapping visceral reflex changes during targeted somatic sensory tracking intervals.",
-                            description: "This strand evaluates neurological cross-talk taking place inside deep tissue matrices during long-term diagnostic tracking arrays.",
-                            funding: "National Institutes of Health Partnership",
-                            status: "Active"
-                        },
-                        {
-                            id: "cranial-fluid",
-                            title: "6. Fluid Dynamics Modeling in Cranial Micro-Compressions",
-                            summary: "Simulating fluid velocity shifts within complex tissue cavities during micro-mechanical adjustments.",
-                            description: "Utilizing modern custom computer modeling algorithms to measure shifts within targeted anatomical fluid channels during non-invasive clinical evaluations.",
-                            funding: "Advanced Fluid Analytics Lab Collaboration",
-                            status: "Active"
-                        },
-                        {
-                            id: "lymphatic-drainage",
-                            title: "7. Osteopathic Lymphatic Pump Mechanisms & Immunological Clearance",
-                            summary: "Measuring peripheral cellular clear rates during variable-frequency passive movement sequences.",
-                            description: "This clinical trial maps out fluid clearance pathways by monitoring specific metabolic tracer drops following clinical mechanical interventions.",
-                            funding: "Federal Healthcare Resource Grant",
+                            id: “Clinical Drug Evaluation”,
+                            title: "7. Disproportionality Analysis of FDA Adverse Event Reporting System (FAERS) Events for Dupilumab and Mepolizumab in Patients with Chronic Rhinosinusitis with Nasal Polyps",
+                            summary: "We hypothesize that Mepolizumab will have a distinct AE profile when compared to Dupilumab given anecdotal evidence.",
+                            description: "We identified 27,052 dupilumab and 1,113 mepolizumab cases. Dupilumab was associated predominantly with ocular and injection-site AEs, plus musculoskeletal (arthralgia) and olfactory (anosmia) signals. Mepolizumab showed stronger relative signals for hematologic, cardiac, and respiratory AEs. Dupilumab showed female-predominant ocular but male-predominant injection-site signals; mepolizumab showed female-predominant respiratory signals. Concurrent oral corticosteroids use amplified AE reporting more for mepolizumab than dupilumab. Weibull modeling showed early failure patterns for most AEs.",
+                            Department: "Specialty Medicine",
                             status: "Active"
                         }
                     ],
                     
                     publications: [
-                        "Campbell, C. O. 'Quantitative Micro-Drift Assessments in Somatic Tissue Architectures.' Journal of Osteopathic Clinical Analytics, 2025.",
-                        "Campbell, C. O., & Davis, M. 'Localized Matrix Transformations for Precision Musculoskeletal Tracking Arrays.' International Bio-Mechanics Review, 2024."
+                        "Campbell, C. O. ‘Demystifying Computational Biology: A Scalable Drub Discovery Framework for Medical Curricula”, Cureus Journal of Medical Science, 10.7759/cureus.112721
+                        "Campbell, C. O., & Davis, M. ‘In Silico characterization of an atypical MAPK phosphatase of Plasmodium falciparum as a suitable target for drug discovery’, Chemical Biology and Drug Design, 10.1111/cbdd.12315
                     ],
                     
                     resources: [
                         {
-                            name: "Neuromuscular Calibration Toolbox v2.1",
-                            type: "C++ Library",
-                            description: "Our proprietary open-source toolkit optimized to compute mechanical stress vectors directly on portable monitoring components.",
-                            url: "#"
+                            name: “Seqera”,
+                            type: “Enterprise Bioinformatics”,
+                            description: “The comprehensive platform empowering teams across the entire scientific lifecycle.",
+                            url: "https://seqera.io/platform/"
                         },
                         {
-                            name: "Somatic Tissue Tracking Matrix Data Pool",
-                            type: "Raw Data Pool",
-                            description: "Publicly accessible telemetry collection consisting of anonymized muscle balance readings cataloged over continuous testing intervals.",
-                            url: "#"
+                            name: “Seqhub”,
+                            type: “Sequence to Function",
+                            description: "This tool evaluates the 'sequence-to-function problem' — the challenge of predicting what a gene or protein actually does based on its sequence alone",
+                            url: "https://seqhub.org/"
                         }
                     ]
                 },
